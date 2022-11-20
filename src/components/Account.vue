@@ -7,12 +7,12 @@
   const { session } = toRefs(props)
 
   const loading = ref(true)
-  const username = ref('')
+  const full_name = ref('')
   const website = ref('')
   const avatar_url = ref('')
 
   onMounted(() => {
-    getProfile()
+    getProfile();
   })
 
   async function getProfile() {
@@ -22,17 +22,16 @@
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`full_name, avatar_url`)
         .eq('id', user.id)
         .single()
 
-      if (error && status !== 406) throw error
+      if (error && status !== 406) throw error 
 
       if (data) {
-        username.value = data.username
-        website.value = data.website
+        full_name.value = user.user_metadata.full_name
         avatar_url.value = user.user_metadata.avatar_url
-      }
+      } else { updateProfile()}
     } catch (error) {
       alert(error.message)
     } finally {
@@ -44,12 +43,12 @@
     try {
       loading.value = true
       const { user } = session.value
+      console.log('Updating')
 
       const updates = {
         id: user.id,
-        username: username.value,
-        website: website.value,
-        avatar_url: avatar_url.value,
+        full_name: user.user_metadata.full_name,
+        avatar_url: user.user_metadata.avatar_url,
         updated_at: new Date(),
       }
 
@@ -69,7 +68,8 @@
 </script>
 
 <template>
-  <form class="form-widget" @submit.prevent="updateProfile">
+  <div>
+  <form class="form-widget" @submit.prevent>
     <div>
       <label for="avatar_url">Profile</label>
       <img
@@ -84,21 +84,8 @@
       <input id="email" type="text" :value="session.user.email" disabled />
     </div>
     <div>
-      <label for="username">Name</label>
-      <input id="username" type="text" v-model="username" />
-    </div>
-    <div>
-      <label for="website">Website</label>
-      <input id="website" type="website" v-model="website" />
-    </div>
-
-    <div>
-      <input
-        type="submit"
-        class="button primary block"
-        :value="loading ? 'Loading ...' : 'Update'"
-        :disabled="loading"
-      />
+      <label for="full_name">Name</label>
+      <input id="full_name" type="text" v-model="full_name" />
     </div>
 
     <div>
@@ -107,4 +94,5 @@
       </button>
     </div>
   </form>
+  </div>
 </template>
