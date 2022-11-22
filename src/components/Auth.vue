@@ -14,10 +14,9 @@
 </script>
 
 <template>
-  <form class="row flex-center flex" @submit.prevent="signInWithDiscord()">
+  <div class="container p-6">
+  <form class="column is-half is-offset-one-quarter" @submit.prevent="signInWithDiscord()">
     <div class="col-6 form-widget">
-      <h1 class="header">Login</h1>
-      <p class="description">You need to login</p>
       <div>
         <input
           type="submit"
@@ -28,4 +27,5 @@
       </div>
     </div>
   </form>
+  </div>
 </template>

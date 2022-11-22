@@ -1,14 +1,13 @@
 <script setup>
-import { useStore } from '../store/index'
+  import { useStore } from '../store/index'
+  import { onMounted, ref } from 'vue'
 
 const store = useStore()
 </script>
-
 <template>
     <div>
-        {{ store.name }}{{ store.number }}
-        <button @click="store.changeName('Roberto')">Change name to Roberto</button>
-        <button @click="store.changeNumber(2)">Change number to 2</button>
-        <button @click="store.$reset">reset store</button>
+        Dashboard
+        {{ store.name }}
+        {{ store.number }}
     </div>
 </template>

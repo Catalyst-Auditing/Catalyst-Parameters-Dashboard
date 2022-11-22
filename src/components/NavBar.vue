@@ -44,12 +44,19 @@ const session = ref()
 <template>
   <div>
   <nav>
-    <RouterLink class="is-pulled-left button m-3" to="/">Home</RouterLink>
-    <RouterLink class="button m-3" to="/dashboard">Dashboard</RouterLink>
+    <RouterLink class="button m-3" to="/">Home</RouterLink>
+    <RouterLink class="button m-3" to="/submitchange">Submit Change</RouterLink>
     <RouterLink to="/profile">
       <img
           v-if="session"
           :src="session.user.user_metadata.avatar_url"
+          alt="Avatar"
+          class="Avatar is-pulled-right m-4"
+          :style="{ height: 2 + 'em', width: 2 + 'em' }"
+        />
+        <img
+          v-else
+          src='https://live.staticflickr.com/5204/5281085864_614284bbd0.jpg'
           alt="Avatar"
           class="Avatar is-pulled-right m-4"
           :style="{ height: 2 + 'em', width: 2 + 'em' }"
@@ -73,9 +80,5 @@ const session = ref()
   filter: brightness(1.2);
   transform: scale(1.2);
   border: 2px solid #65b5f6;
-}
-
-nav {
-  color: blue;
 }
 </style>

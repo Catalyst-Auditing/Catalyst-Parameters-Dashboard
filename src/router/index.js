@@ -1,11 +1,11 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import Home from '../views/Home.vue'
-import Dashboard from '../views/Dashboard.vue'
+import SubmitChange from '../views/SubmitChange.vue'
 import Profile from '../views/Profile.vue'
 
 const routes = [
     { path: '/', component: Home },
-    { path: '/dashboard', component: Dashboard },
+    { path: '/submitchange', component: SubmitChange },
     { path: '/profile', component: Profile }
 ]
 
