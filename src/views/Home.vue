@@ -5,9 +5,13 @@
 const store = useStore()
 </script>
 <template>
-    <div>
-        Dashboard
-        {{ store.name }}
-        {{ store.number }}
+    <div class="has-text-light">
+    <div class="column is-half is-offset-one-quarter has-text-centered">
+      Home
+    </div>
+    <div class="column is-half is-offset-one-quarter has-text-centered">
+      {{ store.name }}
+      {{ store.number }}
+    </div>
     </div>
 </template>

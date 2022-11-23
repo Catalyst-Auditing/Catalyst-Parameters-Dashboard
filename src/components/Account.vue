@@ -85,7 +85,7 @@
     </div>
     <div>
       <label for="full_name">Name</label>
-      <input id="full_name" type="text" v-model="full_name" />
+      <input id="full_name" type="text" v-model="full_name" disabled />
     </div>
 
     <div>

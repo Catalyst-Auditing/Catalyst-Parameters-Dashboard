@@ -19,12 +19,25 @@ const session = ref()
 </script>
 
 <template>
-  <div>
+  <div class="has-text-light">
+    <div class="column is-half is-offset-one-quarter has-text-centered">
+      Submit Change
+    </div>
     <div v-if="session" :session="session">
-        {{ store.name }}{{ store.number }}
-        <button @click="store.changeName('Roberto')">Change name to Roberto</button>
-        <button @click="store.changeNumber(2)">Change number to 2</button>
-        <button @click="store.$reset">reset store</button>
+      <div class="column is-half is-offset-one-quarter has-text-centered">
+          {{ store.name }} 
+          {{ store.number }}
+      </div>
+      <div class="column is-half is-offset-one-quarter has-text-centered">
+        <button class="button m-3" @click="store.changeName('Roberto')">Change name to Roberto</button>
+      </div> 
+      <div class="column is-half is-offset-one-quarter has-text-centered"> 
+        <button class="button m-3" @click="store.changeNumber(2)">Change number to 2</button>
+      </div>
+      <div class="column is-half is-offset-one-quarter has-text-centered">
+        <button class="button m-3" @click="store.$reset">reset store</button>
+      </div>  
+      <div></div>
     </div>
     <Auth v-else />
   </div>
