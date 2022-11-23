@@ -16,7 +16,7 @@
 <template>
   <div class="container p-6">
   <form class="column is-half is-offset-one-quarter" @submit.prevent="signInWithDiscord()">
-    <div class="col-6 form-widget">
+    <div class="col-6 form-widget has-text-centered">
       <div>
         <input
           type="submit"
