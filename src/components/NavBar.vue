@@ -45,7 +45,7 @@ const session = ref()
   <div>
   <nav>
     <RouterLink class="button m-3" to="/">Home</RouterLink>
-    <RouterLink class="button m-3" to="/submitchange">Submit Change</RouterLink>
+    <RouterLink class="button m-3" to="/submitchange" v-if="session" :session="session">Submit Change</RouterLink>
     <RouterLink to="/profile">
       <img
           v-if="session"
