@@ -44,26 +44,30 @@ const session = ref()
 <template>
   <div>
   <nav>
-    <RouterLink class="button m-3" to="/">Home</RouterLink>
-    <RouterLink class="button m-3" to="/submitchange" v-if="session" :session="session">Submit Change</RouterLink>
+    <div>
+    <RouterLink class="button" to="/" tag="button"><button>Home</button></RouterLink>
+    <RouterLink class="button" to="/submitchange" v-if="session" :session="session"><button>Submit Change</button></RouterLink>
+    </div>
+    <div class="navcont">
+    <p v-if="session"> {{ full_name }}</p>
+    <p v-else >Please sign in</p>
     <RouterLink to="/profile">
       <img
           v-if="session"
           :src="session.user.user_metadata.avatar_url"
           alt="Avatar"
-          class="Avatar is-pulled-right m-4"
+          class="Avatar"
           :style="{ height: 2 + 'em', width: 2 + 'em' }"
         />
         <img
           v-else
           src='https://live.staticflickr.com/5204/5281085864_614284bbd0.jpg'
           alt="Avatar"
-          class="Avatar is-pulled-right m-4"
+          class="Avatar"
           :style="{ height: 2 + 'em', width: 2 + 'em' }"
         />
     </RouterLink>
-        <p class="is-pulled-right mt-4 has-text-light" v-if="session"> {{ full_name }}</p>
-        <p class="is-pulled-right m-4 has-text-light" v-else >Please sign in</p>
+    </div>
   </nav>
   </div>
 </template>
@@ -74,11 +78,29 @@ const session = ref()
   border-radius: 50%;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  margin: 0.7em;
 }
 
 .Avatar:hover {
   filter: brightness(1.2);
   transform: scale(1.2);
   border: 2px solid #65b5f6;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+button {
+  margin: 0.5em;
+}
+.navcont {
+  display: flex;
+  justify-content: flex-end;
+}
+
+p {
+  margin: 1em;
 }
 </style>

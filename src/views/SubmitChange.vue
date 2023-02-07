@@ -38,7 +38,7 @@ const id = ref('')
   description.value = 'New way of calculating incentives for CAs'
   category.value = 'Quality Assurance'
   const { status } = await useUpdateCps(title.value, description.value, category.value, id.value)
-  console.log('status',status)
+  console.log('status',status.value)
 }
 
 </script>
