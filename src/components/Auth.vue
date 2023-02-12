@@ -14,14 +14,14 @@
 </script>
 
 <template>
-  <div class="container p-6">
-  <form class="column is-half is-offset-one-quarter" @submit.prevent="signInWithDiscord()">
-    <div class="col-6 form-widget has-text-centered">
+  <div class="container">
+  <form @submit.prevent="signInWithDiscord()">
+    <div>
       <div>
         <input
           type="submit"
-          class="button block"
-          :value="loading ? 'Loading' : 'Login via Discord'"
+          class="discordbutton"
+          :value="loading ? 'Loading' : 'Login with Discord'"
           :disabled="loading"
         />
       </div>
@@ -29,3 +29,21 @@
   </form>
   </div>
 </template>
+
+<style scoped>
+form {
+  padding-top: 1.0em;
+}
+.discordbutton:hover {
+  background-color:black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.discordbutton {
+  background-color: #444ca3;
+  border-radius: 5px;
+  padding: 0.6em;
+  margin-bottom: 0.9em;
+  outline: 2px auto -webkit-focus-ring-color;
+}
+</style>
