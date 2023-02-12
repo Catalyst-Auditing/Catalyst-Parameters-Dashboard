@@ -18,6 +18,7 @@ const whenMentioned = ref([])
 const whenAnnounced = ref([])
 const whenImplemented = ref([])
 const rating = ref()
+const loading = ref(false)
 
 const menuCat = ref([])
 const menuSubCat = ref([])
@@ -135,8 +136,10 @@ async function selectElement2(container, elem, title) {
 }
 
 async function selectElement3(container, elem, title) {
+  loading.value = true
   const { questions } = await useGetQuestions(title)
   questionsR.value = questions.value
+  loading.value = false
   const links = container.querySelectorAll('.link2:not(.rank):not(.title)');
   links.forEach(link2 => link2.classList.remove('selected3'));
   elem.closest('.link2').classList.toggle("selected3");
@@ -163,7 +166,8 @@ async function selectElement3(container, elem, title) {
       </div>
       <div class="container3" ref="container3">
         <p>Step 4 - View question and answers</p>
-        <div class="link3" v-for="title in questionsR" :key="title">{{ Object.keys(questionsR).find(key => questionsR[key] === title) }} <div>{{ title }}</div></div>
+        <div v-if="loading">Loading</div>
+        <div v-else class="link3" v-for="title in questionsR" :key="title">{{ Object.keys(questionsR).find(key => questionsR[key] === title) }} <div>{{ title }}</div></div>
       </div>
     </div>
 </template>
