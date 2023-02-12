@@ -41,8 +41,8 @@ export async function useGetCPS() {
     } finally {
       loading.value = false
     }
-    category.value = Array.from(new Set(category.value))
-    subcategory.value = Array.from(new Set(subcategory.value))
+    //category.value = Array.from(new Set(category.value))
+    //subcategory.value = Array.from(new Set(subcategory.value))
   }
 
   await getParameters()

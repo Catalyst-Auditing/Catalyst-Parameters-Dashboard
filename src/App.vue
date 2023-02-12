@@ -98,11 +98,21 @@ body {
   outline: 2px auto -webkit-focus-ring-color;
 }
 .link2 {
+  position: relative;
+  background-color: #262b64;
+  border-radius: 5px;
+  padding-top: 0.6em;
+  padding-left: 0.8em;
+  padding-bottom: 1.4em;
+  margin-bottom: 0.9em;
+  outline: 2px auto -webkit-focus-ring-color;
+}
+
+.link3 {
   background-color: #262b64;
   border-radius: 5px;
   padding: 0.6em;
   margin-bottom: 0.9em;
-  outline: 2px auto -webkit-focus-ring-color;
 }
 
 @media (max-width: 1300px) {
