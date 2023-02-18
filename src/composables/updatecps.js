@@ -2,7 +2,15 @@ import { ref } from 'vue'
 import { useStore } from '../store/index';
 import { supabase } from '../supabase'
 
-export async function useUpdateCps(title, description, category, id) {
+export async function useUpdateCps(title, 
+  description, 
+  category, 
+  subcategory, 
+  id,
+  when_menioned,
+  when_announced,
+  when_implemented
+  ) {
 
   const status = ref('')
   const loading = ref(true)
@@ -17,6 +25,7 @@ export async function useUpdateCps(title, description, category, id) {
         description: description,
         title: title,
         category: category,
+        subcategory: subcategory,
         id: id
       }
       let { data, error } = await supabase
@@ -41,10 +50,11 @@ export async function useUpdateCps(title, description, category, id) {
     try {
     loading.value = true
     const updates = {
-      what_changed: description,
-      when_mentioned: "22 January 2022",
-      when_announced: "24 February 2022",
-      when_implemented: "24 October 2022",
+      what_changed: title,
+      description: description,
+      when_mentioned: when_menioned,
+      when_announced: when_announced,
+      when_implemented: when_implemented,
       id: id,
       protocol_id: protocol_id.value
     }

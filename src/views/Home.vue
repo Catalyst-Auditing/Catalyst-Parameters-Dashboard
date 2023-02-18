@@ -225,4 +225,106 @@ async function selectElement3(container, elem, title) {
   border: 1px solid transparent;
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.main-container {
+  display: flex;
+  padding-top: 0.6em;
+  align-items: stretch;
+  min-height: 100%;
+}
+.container {
+  margin: 0.6em;
+  flex-grow: 1;
+  background-color: #028ea7;
+  border-radius: 5px;
+  padding: 0.8em;
+  padding-top: 0em;
+  overflow: auto;
+  min-width: 180px;
+  text-align: center;
+}
+
+.container1 {
+  margin: 0.6em;
+  flex-grow: 1;
+  background-color: #028ea7;
+  border-radius: 5px;
+  padding: 0.8em;
+  padding-top: 0em;
+  overflow: auto;
+  min-width: 180px;
+  text-align: center;
+}
+.container2 {
+  margin: 0.6em;
+  flex-grow: 1;
+  background-color: #028ea7;
+  border-radius: 5px;
+  padding: 0.8em;
+  padding-top: 0em;
+  overflow: auto;
+  max-width: 300px;
+  min-width: 220px;
+}
+.container3 {
+  margin: 0.6em;
+  flex-grow: 3;
+  background-color: #028ea7;
+  border-radius: 5px;
+  padding: 0.8em;
+  padding-top: 0em;
+  overflow: auto;
+  max-width: 550px;
+}
+
+.card {
+  background-color: #262b64;
+  border-radius: 5px;
+  padding: 0.6em;
+  margin-bottom: 0.9em;
+}
+
+.link {
+  background-color: #262b64;
+  border-radius: 5px;
+  padding: 0.6em;
+  margin-bottom: 0.9em;
+  outline: 2px auto -webkit-focus-ring-color;
+}
+.link1 {
+  background-color: #262b64;
+  border-radius: 5px;
+  padding: 0.6em;
+  margin-bottom: 0.9em;
+  outline: 2px auto -webkit-focus-ring-color;
+}
+.link2 {
+  position: relative;
+  background-color: #262b64;
+  border-radius: 5px;
+  padding-top: 0.6em;
+  padding-left: 0.8em;
+  padding-bottom: 1.4em;
+  margin-bottom: 0.9em;
+  outline: 2px auto -webkit-focus-ring-color;
+}
+
+.link3 {
+  background-color: #262b64;
+  border-radius: 5px;
+  padding: 0.6em;
+  margin-bottom: 0.9em;
+}
+
+@media (max-width: 1300px) {
+  .main-container {
+    flex-wrap: wrap;
+  }
+  .container2 {
+    max-width: 1300px;
+  }
+  .container3 {
+    max-width: 1300px;
+  }
+}
 </style>
