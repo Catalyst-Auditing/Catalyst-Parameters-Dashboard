@@ -30,9 +30,14 @@
 
 <script setup>
 const user = useSupabaseUser()
-console.log(user.value)
-const username = ref(user.value.user_metadata.full_name)
-const picture = ref(user.value.user_metadata.avatar_url)
+const username = ref()
+const picture = ref()
+if (user) {
+  username.value = user.value.user_metadata.full_name
+  picture.value = user.value.user_metadata.avatar_url
+  console.log(user.value)
+}
+
 </script>
 
 <style scoped>
