@@ -3,12 +3,12 @@
     <div class="navbar-links">
       <nuxt-link to="/" class="nav-link">Home</nuxt-link>
       <nuxt-link to="/parameters" class="nav-link">Parameters</nuxt-link>
-      <nuxt-link v-if="user" to="/submitparameter" class="nav-link">Submit a Parameter Change</nuxt-link>
+      <nuxt-link v-if="signedIn" to="/submitparameter" class="nav-link">Submit a Parameter Change</nuxt-link>
       <nuxt-link to="/contact" class="nav-link">Contact</nuxt-link>
     </div>
-    <nuxt-link to="/account" class="user" v-if="user"> 
+    <nuxt-link to="/account" class="user" v-if="signedIn"> 
       <img
-          v-if="user"
+          v-if="signedIn"
           :src="user.user_metadata.avatar_url"
           alt="Avatar"
           class="Avatar"
@@ -30,13 +30,18 @@
 
 <script setup>
 const user = useSupabaseUser()
+const signedIn = ref(false)
 const username = ref()
 const picture = ref()
-if (user) {
+console.log(user.value)
+onMounted(() => {
+  if (user.value != null) {
   username.value = user.value.user_metadata.full_name
   picture.value = user.value.user_metadata.avatar_url
-  console.log(user.value)
+  console.log(user.value.user_metadata.avatar_url)
+  signedIn.value = true;
 }
+})
 
 </script>
 

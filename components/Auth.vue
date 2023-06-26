@@ -24,7 +24,6 @@ const handleLogin = async () => {
 <template>
   <form class="row flex-center flex" @submit.prevent="handleLogin">
     <div class="col-6 form-widget">
-      <p class="description">Sign in with Discord</p>
       <div>
         <input
           type="submit"
