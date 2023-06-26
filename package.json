@@ -1,21 +1,20 @@
 {
-  "name": "catalyst-parameters",
+  "name": "nuxt-app",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.1.0",
-    "pinia": "^2.0.24",
-    "vue": "^3.2.41",
-    "vue-router": "^4.1.6"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^3.2.0",
-    "vite": "^3.2.3"
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18",
+    "nuxt": "^3.5.2"
+  },
+  "dependencies": {
+    "@nuxtjs/supabase": "^0.3.7",
+    "@supabase/supabase-js": "^2.25.0"
   }
 }
