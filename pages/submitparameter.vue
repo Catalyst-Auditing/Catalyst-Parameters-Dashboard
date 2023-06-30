@@ -1,6 +1,22 @@
 <template>
   <div>
     <form @submit.prevent="updateData" class="form-container">
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select v-model="selectedCategory" id="category" class="select" @change="updateSubcategories">
+          <option v-for="(value, key) in categories" :key="key" :value="key">{{ key }}</option>
+          <option value="Add new">Add new</option>
+        </select>
+        <input v-if="selectedCategory === 'Add new'" v-model="addedCategory" type="text" class="select" placeholder="Enter new category">
+      </div>
+      <div class="form-group">
+        <label for="subcategory">Subcategory</label>
+        <select v-model="selectedSubcategory" id="subcategory" class="select" @change="updateSubcategories">
+          <option v-for="subcategory in subcategories" :key="subcategory" :value="subcategory">{{ subcategory }}</option>
+          <option value="Add new">Add new</option>
+        </select>
+        <input v-if="selectedSubcategory === 'Add new'" v-model="addedSubcategory" type="text" class="select" placeholder="Enter new subcategory">
+      </div>
       <div v-for="(question, key) in questions" :key="key" class="form-group">
         <label :for="key">{{ question }}</label>
         <input v-model="answers[key]" :id="key" type="text" class="form-input" autocomplete="off" />
@@ -10,8 +26,17 @@
   </div>
 </template>
 
-
 <script setup>
+import { useUploadParams } from '~/composables/useUploadParams';
+const user = useSupabaseUser();
+const { processedData } = await useGetParams();
+let categories = processedData.value;
+
+// New variables
+let selectedCategory = '';
+let selectedSubcategory = '';
+let subcategories = ref([]);
+
 const questions = {
   what_changed: 'What changed?',
   function_of_parameter: 'Function of the parameter',
@@ -45,8 +70,34 @@ const answers = ref({
   conditions_for_control: ''
 })
 
+const updateSubcategories = () => {
+  if (selectedCategory && categories[selectedCategory]) {
+    subcategories.value = Object.keys(categories[selectedCategory]);
+  } else {
+    subcategories.value = [];
+  }
+};
+
+let addedCategory = ref('');
+let addedSubcategory = ref('');
+
 async function updateData() {
-  console.log(answers.value)
+  if (selectedCategory === 'Add new') {
+    // You might want to add logic for updating categories here
+    answers.value.category = addedCategory.value;
+  } else {
+    answers.value.category = selectedCategory;
+  }
+
+  if (selectedSubcategory === 'Add new') {
+    // You might want to add logic for updating subcategories here
+    answers.value.subcategory = addedSubcategory.value;
+  } else {
+    answers.value.subcategory = selectedSubcategory;
+  }
+  //answers.value.category = selectedCategory;
+  //answers.value.subcategory = selectedSubcategory;
+  const status = await useUploadParams(answers.value, user.value.id);
 }
 </script>
 
@@ -65,7 +116,10 @@ async function updateData() {
   flex-direction: column;
   width: 50%;
 }
-
+.select {
+  background-color: black;
+  color: aliceblue;
+}
 .form-input {
   background-color: black;
   color: white;

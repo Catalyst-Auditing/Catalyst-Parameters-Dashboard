@@ -5,7 +5,7 @@ interface Data {
   id: string;
   created_at: string;
   title: string;
-  description: string;
+  function: string;
   category: string;
   subcategory: string;
   status: string;
@@ -17,7 +17,7 @@ interface ProcessedData {
       [subcategory: string]: {
           id: string;
           title: string;
-          description: string;
+          function: string;
           rating: number;
       }[]
     }
@@ -37,7 +37,7 @@ export const useGetParams = async () => {
 
       let { data: responseData, error, status: responseStatus } = await supabase
         .from('cps')
-        .select(`protocol_id, id, created_at, title, description, category, subcategory, status, rating`)
+        .select(`protocol_id, id, created_at, title, function, category, subcategory, status, rating`)
         
       if (error && responseStatus !== 406) throw error
 
@@ -66,7 +66,7 @@ export const useGetParams = async () => {
       result[item.category][item.subcategory].push({
         id: item.protocol_id,
         title: item.title,
-        description: item.description,
+        function: item.function,
         rating: item.rating
       });
     });

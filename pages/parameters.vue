@@ -29,7 +29,7 @@
             :class="{ selected: item === topItem3 }" id="button3"
           >
             <div>Title : <span class="title">{{ item.title }}</span></div>
-            <div>Descrition : <span class="description">{{ item.description }}</span></div>
+            <div>Descrition : <span class="description">{{ item.function }}</span></div>
             <div><star-rating :rating="item.rating" /></div>
           </button>
         </transition-group>
@@ -73,7 +73,7 @@ const topItem4 = ref('');
 const disableAnimations = ref(false);
 const { processedData } = await useGetParams();
 let items = processedData.value
-
+console.log(processedData.value)
 let selectedItem = ref(null);
 let selectedSubItem = ref(null);
 let selectedSubSubItem = ref(null);

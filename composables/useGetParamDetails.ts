@@ -1,7 +1,7 @@
 import { ref, Ref, computed } from 'vue'
 
 interface Data {
-  [key: string]: any; // This line has been added
+  [key: string]: any; 
   protocol_id: string;
   id: string;
   created_at: string;
