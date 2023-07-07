@@ -95,9 +95,9 @@ async function updateData() {
   } else {
     answers.value.subcategory = selectedSubcategory;
   }
-  //answers.value.category = selectedCategory;
-  //answers.value.subcategory = selectedSubcategory;
+  
   const status = await useUploadParams(answers.value, user.value.id);
+  console.log("Client status", status)
 }
 </script>
 

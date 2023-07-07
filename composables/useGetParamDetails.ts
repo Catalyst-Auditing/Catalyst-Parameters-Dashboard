@@ -6,7 +6,7 @@ interface Data {
   id: string;
   created_at: string;
   what_changed: string;
-  description: string;
+  function_of_parameter: string;
   when_mentioned: string;
   when_announced: string;
   when_implemented: string;
@@ -15,7 +15,7 @@ interface Data {
 interface ProcessedData2 {
     [protocol_id: string]: {
       title: string;
-      description: string;
+      function_of_parameter: string;
       when_mentioned: string;
       when_announced: string;
       when_implemented: string;
@@ -32,6 +32,7 @@ export const useGetParamDetails = async (protocolId: any) => {
   const loading: Ref<boolean> = ref(false)
   const questions: any = {
     "what_changed":"What Changed",
+    "function_of_parameter":"Function of parameter",
     "when_mentioned":"When was it mentioned",
     "when_announced":"When was it announced",
     "when_implemented":"When was it implemented"
@@ -44,7 +45,7 @@ export const useGetParamDetails = async (protocolId: any) => {
 
       let { data: responseData, error, status: responseStatus } = await supabase
         .from('protocol_details')
-        .select(`protocol_id, id, created_at, what_changed, description, when_mentioned, when_announced, when_implemented`)
+        .select(`protocol_id, id, created_at, what_changed, function_of_parameter, when_mentioned, when_announced, when_implemented`)
         .eq('protocol_id', protocolId)
         
       if (error && responseStatus !== 406) throw error
@@ -67,7 +68,7 @@ export const useGetParamDetails = async (protocolId: any) => {
     let i = 1;
     data.value?.forEach((item: Data) => { // Explicitly typing item as Data
       Object.keys(item).forEach((key, index) => {
-        if (key !== 'protocol_id' && key !== 'description' && key !== 'title' && key !== "created_at" && key !== "id") {
+        if (key !== 'protocol_id' && key !== 'title' && key !== "created_at" && key !== "id") {
           result.push({
             question: `${questions[key]}`,
             answer: item[key]
