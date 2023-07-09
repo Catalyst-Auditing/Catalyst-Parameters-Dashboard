@@ -8,6 +8,7 @@
       <div v-if="stage == 5" class="container">{{ topItem4.question }}</div>
       <div v-if="stage == 5" class="container">Answer: </div>
       <div v-if="stage == 5" class="container"><span v-html="convertURLsToLinks(topItem4.answer)"></span></div>
+      <div v-if="stage == 1" class="container">Please select a category</div>
     </div>
     <div class="main-container">
       <div class="container">
