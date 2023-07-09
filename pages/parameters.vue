@@ -1,4 +1,5 @@
 <template>
+  <div class="container">{{ stage }}</div>
   <div class="main-container">
     <div class="container">
         <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }">
@@ -28,8 +29,8 @@
             @click="getParamDetails(item, 3)"
             :class="{ selected: item === topItem3 }" id="button3"
           >
-            <div>Title : <span class="title">{{ item.title }}</span></div>
-            <div>Descrition : <span class="description">{{ item.function }}</span></div>
+            <div><span class="title">{{ item.title }}</span></div>
+            <!-- <div>Descrition : <span class="description">{{ item.function }}</span></div> -->
             <div><star-rating :rating="item.rating" /></div>
           </button>
         </transition-group>
@@ -201,10 +202,12 @@ async function getQuestionDetails(questions, stageNumber) {
 #button3 {
     margin-bottom: 20px;
     width: 30em;
+    text-transform: none;
   }
 #button4 {
     margin-bottom: 20px;
     width: 40em;
+    text-transform: none;
   }
 .button:hover {
   border: 1px solid white; /* Add white border on hover */

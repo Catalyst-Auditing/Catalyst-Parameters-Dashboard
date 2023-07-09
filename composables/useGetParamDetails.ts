@@ -31,11 +31,20 @@ export const useGetParamDetails = async (protocolId: any) => {
   const status: Ref<string> = ref('')
   const loading: Ref<boolean> = ref(false)
   const questions: any = {
-    "what_changed":"What Changed",
-    "function_of_parameter":"Function of parameter",
-    "when_mentioned":"When was it mentioned",
-    "when_announced":"When was it announced",
-    "when_implemented":"When was it implemented"
+    "what_changed": "What changed?",
+    "function_of_parameter": "Function of the parameter",
+    "who_initiated": "Who initiated this change?",
+    "when_mentioned": "Date first raised, considered, or discussed by whoever implemented it",
+    "when_announced": "Date first announced that a decision had been made and that the change would be implemented",
+    "when_implemented": "Date actually implemented",
+    "who_had_input": "Who had input or was consulted",
+    "where_communicated": "How or where communicated to the whole community",
+    "discussion_before_announced": "Link to documentation of any discussion before it was announced",
+    "publication": "Any published research or publication underpinning it",
+    "community_comments": "Any community comments on how it was shared, how informed they felt, etc",
+    "roles_affected": "Which roles in Catalyst does this parameter change affect?",
+    "should_community_control": "Do community members submitting this change think this parameter should be in the control of the Catalyst community?",
+    "conditions_for_control": "What conditions would have to be met before the Catalyst community could take control of this parameter?"
   };
   
   async function getData(): Promise<void> {  
@@ -45,7 +54,7 @@ export const useGetParamDetails = async (protocolId: any) => {
 
       let { data: responseData, error, status: responseStatus } = await supabase
         .from('protocol_details')
-        .select(`protocol_id, id, created_at, what_changed, function_of_parameter, when_mentioned, when_announced, when_implemented`)
+        .select(`protocol_id, id, created_at, what_changed, function_of_parameter, who_initiated, when_mentioned, when_announced, when_implemented, who_had_input, where_communicated, discussion_before_announced, publication, community_comments, roles_affected, should_community_control, conditions_for_control`)
         .eq('protocol_id', protocolId)
         
       if (error && responseStatus !== 406) throw error

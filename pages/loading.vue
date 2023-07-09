@@ -6,6 +6,5 @@ onMounted(() => {
 </script>
 <template>
     <div>
-        Loading...
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="updateData" class="form-container">
+    <form v-if="signedIn" @submit.prevent="updateData" class="form-container">
       <div class="form-group">
         <label for="category">Category</label>
         <select v-model="selectedCategory" id="category" class="select" @change="updateSubcategories">
@@ -23,12 +23,19 @@
       </div>
       <button type="submit">Submit changes</button>
     </form>
+    <div v-else class="form-container">Please sign in</div>
   </div>
 </template>
 
 <script setup>
 import { useUploadParams } from '~/composables/useUploadParams';
 const user = useSupabaseUser();
+const signedIn = ref(false)
+onMounted(() => {
+  if (user.value != null) {
+  signedIn.value = true;
+}
+})
 const { processedData } = await useGetParams();
 let categories = processedData.value;
 
