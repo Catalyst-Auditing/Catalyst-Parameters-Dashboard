@@ -104,7 +104,7 @@ async function updateData() {
   }
   
   const status = await useUploadParams(answers.value, user.value.id);
-  console.log("Client status", status)
+  //console.log("Client status", status)
 }
 </script>
 

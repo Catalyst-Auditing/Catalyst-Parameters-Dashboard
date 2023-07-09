@@ -1,50 +1,60 @@
 <template>
-  <div class="container">{{ stage }}</div>
-  <div class="main-container">
-    <div class="container">
-        <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }">
-          <button 
-            class="button" 
-            v-for="key in list1" :key="key"
-            @click="selectItem(key, 1)"
-            :class="{ selected: key === topItem1 }" id="button1"
-          >
-            {{ key }}
-          </button>
-        </transition-group>
-        <transition-group :css="!disableAnimations" name="list2-transition" tag="div" class="list" :class="{ active: stage >= 2 }" v-if="stage1Key">
-          <button 
-            class="button" 
-            v-for="key in list2" :key="key"
-            @click="selectSubItem(key, 2)"
-            :class="{ selected: key === topItem2 }" id="button2"
-          >
-            {{ key }}
-          </button>
-        </transition-group>
-        <transition-group :css="!disableAnimations" name="list3-transition" tag="div" class="list" :class="{ active: stage >= 3 }" v-if="stage1Key && stage2Key">
-          <button
-            class="button" 
-            v-for="(item, index) in list3" :key="index"
-            @click="getParamDetails(item, 3)"
-            :class="{ selected: item === topItem3 }" id="button3"
-          >
-            <div><span class="title">{{ item.title }}</span></div>
-            <!-- <div>Descrition : <span class="description">{{ item.function }}</span></div> -->
-            <div><star-rating :rating="item.rating" /></div>
-          </button>
-        </transition-group>
-        <transition-group :css="!disableAnimations" name="list4-transition" tag="div" class="list" :class="{ active: stage >= 4 }" v-if="stage1Key && stage2Key && stage3Key">
-          <button
-            class="button" 
-            v-for="(item, index) in list4" :key="index"
-            @click="getQuestionDetails(item, 4)"
-            :class="{ selected: item === topItem4 }"  id="button4"
-          >
-            <div>Question : {{ item.question }}</div>
-            <div>Answer : {{ item.answer }}</div>
-          </button>
-        </transition-group>
+  <div class="main">
+    <div class="top-box">
+      <div v-if="stage == 2" class="container">{{ topItem1 }}</div>
+      <div v-if="stage == 3" class="container">{{ topItem2}}</div>
+      <div v-if="stage == 4" class="container">{{ topItem3.title }}</div>
+      <div v-if="stage == 5" class="container">Question: </div>
+      <div v-if="stage == 5" class="container">{{ topItem4.question }}</div>
+      <div v-if="stage == 5" class="container">Answer: </div>
+      <div v-if="stage == 5" class="container"><span v-html="convertURLsToLinks(topItem4.answer)"></span></div>
+    </div>
+    <div class="main-container">
+      <div class="container">
+          <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }">
+            <button 
+              class="button" 
+              v-for="key in list1" :key="key"
+              @click="selectItem(key, 1)"
+              :class="{ selected: key === topItem1 }" id="button1"
+            >
+              {{ key }}
+            </button>
+          </transition-group>
+          <transition-group :css="!disableAnimations" name="list2-transition" tag="div" class="list" :class="{ active: stage >= 2 }" v-if="stage1Key">
+            <button 
+              class="button" 
+              v-for="key in list2" :key="key"
+              @click="selectSubItem(key, 2)"
+              :class="{ selected: key === topItem2 }" id="button2"
+            >
+              {{ key }}
+            </button>
+          </transition-group>
+          <transition-group :css="!disableAnimations" name="list3-transition" tag="div" class="list" :class="{ active: stage >= 3 }" v-if="stage1Key && stage2Key">
+            <button
+              class="button" 
+              v-for="(item, index) in list3" :key="index"
+              @click="getParamDetails(item, 3)"
+              :class="{ selected: item === topItem3 }" id="button3"
+            >
+              <div><span class="title">{{ item.title }}</span></div>
+              <!-- <div>Descrition : <span class="description">{{ item.function }}</span></div> -->
+              <div><star-rating :rating="item.rating" /></div>
+            </button>
+          </transition-group>
+          <transition-group :css="!disableAnimations" name="list4-transition" tag="div" class="list" :class="{ active: stage >= 4 }" v-if="stage1Key && stage2Key && stage3Key">
+            <button
+              class="button" 
+              v-for="(item, index) in list4" :key="index"
+              @click="getQuestionDetails(item, 4)"
+              :class="{ selected: item === topItem4 }"  id="button4"
+            >
+              <div>Question : {{ item.question }}</div>
+              <div>Answer : {{ item.answer }}</div>
+            </button>
+          </transition-group>
+      </div>
     </div>
   </div>
 </template>
@@ -74,10 +84,17 @@ const topItem4 = ref('');
 const disableAnimations = ref(false);
 const { processedData } = await useGetParams();
 let items = processedData.value
-console.log(processedData.value)
+//console.log(processedData.value)
 let selectedItem = ref(null);
 let selectedSubItem = ref(null);
 let selectedSubSubItem = ref(null);
+
+function convertURLsToLinks(text) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function(url) {
+    return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  });
+}
 
 const list1 = computed(() => {
   if (topItem1.value) {
@@ -160,6 +177,22 @@ async function getQuestionDetails(questions, stageNumber) {
 </script>
 
 <style scoped>
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+}
+.top-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 700px;
+  border: 1px solid gray; 
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: -50px;
+}
 .main-container {
   margin-top: 100px;
   display: flex;

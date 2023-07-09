@@ -11,7 +11,7 @@ export async function useUploadParams(answers, userId) {
     category: answers.category,
     subcategory: answers.subcategory
   }
-  console.log ("upload", answers, userId, updates)
+  //console.log ("upload", answers, userId, updates)
 
   async function uploadToSupabase() {
     error.value = null
@@ -32,7 +32,7 @@ export async function useUploadParams(answers, userId) {
       if (uploadError) {
         throw new Error(uploadError.message)
       }
-      console.log(data)
+      //console.log(data)
       protocol_id = data[0].protocol_id;  // again assuming protocol_id is a field in the response
     } catch (err) {
       error.value = err.message
@@ -49,7 +49,7 @@ export async function useUploadParams(answers, userId) {
       id: userId,
       protocol_id // appending the protocol_id to the answers object
     };
-    console.log("dataToInsert:", dataToInsert); // debug line
+    //console.log("dataToInsert:", dataToInsert); // debug line
     try {
       const { error: uploadError } = await supabase
         .from('protocol_details')

@@ -33,12 +33,12 @@ const user = useSupabaseUser()
 const signedIn = ref(false)
 const username = ref()
 const picture = ref()
-console.log(user.value)
+//console.log(user.value)
 onMounted(() => {
   if (user.value != null) {
   username.value = user.value.user_metadata.full_name
   picture.value = user.value.user_metadata.avatar_url
-  console.log(user.value.user_metadata.avatar_url)
+  //console.log(user.value.user_metadata.avatar_url)
   signedIn.value = true;
 }
 })
