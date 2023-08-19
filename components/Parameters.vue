@@ -3,7 +3,8 @@
     <div class="top-box">
       <div v-if="stage == 2" class="container">{{ topItem1 }}</div>
       <div v-if="stage == 3" class="container">{{ topItem2}}</div>
-      <div v-if="stage == 4" class="container">{{ topItem3 }}</div>
+      <div v-if="stage == 4" class="container">{{ items[topItem1][topItem2].find(element => element.id === topItem3)?.title || 'Item not found' }}</div>
+      <div v-if="stage == 4"><star-rating :rating="items[topItem1][topItem2].find(element => element.id === topItem3)?.rating" /></div>
       <div v-if="stage == 5" class="container">Question: </div>
       <div v-if="stage == 5" class="container">{{ topItem4.question }}</div>
       <div v-if="stage == 5" class="container">Answer: </div>
@@ -12,7 +13,7 @@
     </div>
     <div class="main-container">
       <div class="container">
-          <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }">
+          <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }" v-if="loaded">
             <button 
               class="button" 
               v-for="key in list1" :key="key"
@@ -63,15 +64,8 @@
 
 <script setup>
 import { watch, ref, computed } from 'vue';
-/*onMounted(() => {
-  const router = useRouter();
-  if (localStorage.getItem('refreshed')) {
-    localStorage.removeItem('refreshed');
-    router.push('/loading');
-  } else {
-    localStorage.setItem('refreshed', 'true');
-  }
-})*/
+
+const loaded = ref(false)
 const route = useRoute();
 const router = useRouter();
 const stage = ref(1);
@@ -87,12 +81,13 @@ const topItem4 = ref('');
 const disableAnimations = ref(false);
 const { processedData } = await useGetParams();
 let items = processedData.value
-//console.log(processedData.value)
+console.log(processedData.value)
 let selectedItem = ref(null);
 let selectedSubItem = ref(null);
 let selectedSubSubItem = ref(null);
 
 onMounted(async () => {
+  loaded.value = true
   console.log("onMounter route", route.params)
   const segments = route.fullPath.replace(/^\/|\/$/g, '').split('/');
   console.log("segments", segments.length)

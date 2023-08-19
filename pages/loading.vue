@@ -1,7 +1,7 @@
 <script setup>
 onMounted(() => {
   const router = useRouter();
-  router.push('/parameters');
+  router.push('/cps');
 })
 </script>
 <template>
