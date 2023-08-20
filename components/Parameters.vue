@@ -13,7 +13,7 @@
     </div>
     <div class="main-container">
       <div class="container">
-          <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }" v-if="loaded">
+          <transition-group :css="!disableAnimations" name="list1-transition" tag="div" class="list" :class="{ active: stage >= 1 }">
             <button 
               class="button" 
               v-for="key in list1" :key="key"
@@ -87,10 +87,9 @@ let selectedSubItem = ref(null);
 let selectedSubSubItem = ref(null);
 
 onMounted(async () => {
-  loaded.value = true
+  loaded.value = true;
   console.log("onMounter route", route.params)
   const segments = route.fullPath.replace(/^\/|\/$/g, '').split('/');
-  console.log("segments", segments.length)
   if (route.params.stage && segments.length < 4) {
     stage.value = Number(route.params.stage);
   }
@@ -162,7 +161,6 @@ async function step4(subSubItem, stageNumber) {
   thirdItems.value = items[stage1Key.value][stage2Key.value]
   finalItems.value = selectedSubSubItem.value
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  console.log("item3", subSubItem)
 }
 
 function convertURLsToLinks(text) {
@@ -228,7 +226,6 @@ async function getParamDetails(subSubItem, stageNumber) {
   stage3Key.value = subSubItem
   finalItems.value = selectedSubSubItem.value
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  console.log("item3", subSubItem)
   router.push(`/cps/${stage.value}/${stage1Key.value}/${stage2Key.value}/${subSubItem}`);
 }
 async function getQuestionDetails(questions, stageNumber) {
@@ -274,11 +271,15 @@ async function getQuestionDetails(questions, stageNumber) {
 }
 
 .list {
-    display: none;
+    display: flex;
     flex-direction: column;
     margin-right: 20px;
   }
 .list.active {
+  display: flex;
+  flex-direction: column;
+}
+#firstList {
   display: flex;
   flex-direction: column;
 }

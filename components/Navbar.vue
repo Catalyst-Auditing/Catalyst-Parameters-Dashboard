@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-links">
       <nuxt-link to="/" class="nav-link">Home</nuxt-link>
-      <nuxt-link to="/parameters" class="nav-link">Parameters</nuxt-link>
+      <nuxt-link to="/cps" class="nav-link">Parameters</nuxt-link>
       <nuxt-link v-if="signedIn" to="/submitparameter" class="nav-link">Submit a Parameter Change</nuxt-link>
       <nuxt-link to="/contact" class="nav-link">Contact</nuxt-link>
     </div>

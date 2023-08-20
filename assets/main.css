@@ -44,3 +44,13 @@ button.primary,
     background-color: var(--custom-color-brand);
     border: 1px solid var(--custom-color-brand);
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+.list.active {
+  display: flex;
+  flex-direction: column;
+}
