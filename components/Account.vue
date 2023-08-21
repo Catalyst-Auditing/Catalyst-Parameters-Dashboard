@@ -1,28 +1,48 @@
 <script setup>
 const supabase = useSupabaseClient()
-
+const router = useRouter();
 const loading = ref(true)
 const full_name = ref('')
 const website = ref('')
 const avatar_path = ref('')
+const signedIn = ref(false)
 
 loading.value = true
 const user = useSupabaseUser()
 
-let { data } = await supabase
-  .from('profiles')
-  .select(`full_name, website, avatar_url`)
-  .eq('id', user.value.id)
-  .single()
-  console.log(data)
-if (data) {
-    
-  full_name.value = data.full_name
-  website.value = data.website
-  avatar_path.value = data.avatar_url
-}
+onMounted(async () => {
+  try {
+    let sess = await supabase.auth.getSession();
+    if (sess && sess.data && sess.data.session && sess.data.session.user) {
+      let { data } = await supabase
+        .from('profiles')
+        .select(`full_name, website, avatar_url`)
+        .eq('id', sess.data.session.user.id) // accessing user id directly from the session
+        .single();
+      if (data) {
+        full_name.value = data.full_name;
+        website.value = data.website;
+        avatar_path.value = data.avatar_url;
+      }
+      signedIn.value = true;
+    } else {
+      router.push(`/`);
+    }
+  } catch (error) {
+    console.error(error);
+    // Handle the error as needed
+  } finally {
+    loading.value = false;
+  }
+});
 
-loading.value = false
+supabase.auth.onAuthStateChange(async (event, session) => {
+  signedIn.value = event === 'SIGNED_IN';
+  if (session && session.data && session.data.session && session.data.session.user) {
+    signedIn.value = true;
+  }
+});
+
 
 async function updateProfile() {
   try {
@@ -50,20 +70,18 @@ async function updateProfile() {
 
 async function signOut() {
   try {
-    loading.value = true
-    let { error } = await supabase.auth.signOut()
-    if (error) throw error
-    user.value = null
+    await supabase.auth.signOut();
+    router.push({ path: '/' });
   } catch (error) {
-    alert(error.message)
-  } finally {
-    loading.value = false
+    console.error("Error signing out:", error);
+    // Handle the error as needed
   }
 }
+
 </script>
 
 <template>
-  <form class="form-widget" @submit.prevent="updateProfile">
+  <form v-if="signedIn" class="form-widget" @submit.prevent="updateProfile">
     <div>
       <label for="email">Email</label>
       <input id="email" type="text" :value="user.email" disabled />

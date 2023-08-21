@@ -9,7 +9,7 @@
     <nuxt-link to="/account" class="user" v-if="signedIn"> 
       <img
           v-if="signedIn"
-          :src="user.user_metadata.avatar_url"
+          :src="picture"
           alt="Avatar"
           class="Avatar"
           :style="{ height: 2 + 'em', width: 2 + 'em' }"
@@ -29,16 +29,18 @@
 </template>
 
 <script setup>
+const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const signedIn = ref(false)
 const username = ref()
 const picture = ref()
-//console.log(user.value)
-onMounted(() => {
-  if (user.value != null) {
-  username.value = user.value.user_metadata.full_name
-  picture.value = user.value.user_metadata.avatar_url
-  //console.log(user.value.user_metadata.avatar_url)
+
+supabase.auth.onAuthStateChange(async (event, session) => {
+  signedIn.value = event === 'SIGNED_IN'
+  let sess = await supabase.auth.getSession()
+  if (sess && sess.data && sess.data.session && sess.data.session.user) {
+  username.value = sess.data.session.user.user_metadata.full_name
+  picture.value = sess.data.session.user.user_metadata.avatar_url
   signedIn.value = true;
 }
 })
