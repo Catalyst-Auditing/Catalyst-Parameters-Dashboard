@@ -1,15 +1,15 @@
 <template>
   <div class="main">
     <div class="top-box">
-      <div v-if="stage == 2" class="container">{{ topItem1 }}</div>
-      <div v-if="stage == 3" class="container">{{ topItem2}}</div>
-      <div v-if="stage == 4" class="container">{{ items[topItem1][topItem2].find(element => element.id === topItem3)?.title || 'Item not found' }}</div>
-      <div v-if="stage == 4"><star-rating :rating="items[topItem1][topItem2].find(element => element.id === topItem3)?.rating" /></div>
-      <div v-if="stage == 5" class="container">Question: </div>
-      <div v-if="stage == 5" class="container">{{ topItem4.question }}</div>
-      <div v-if="stage == 5" class="container">Answer: </div>
-      <div v-if="stage == 5" class="container"><span v-html="convertURLsToLinks(topItem4.answer)"></span></div>
-      <div v-if="stage == 1" class="container">Please select a category</div>
+        <div v-if="stage == 2" class="container">{{ topItem1 }}</div>
+        <div v-if="stage == 3" class="container">{{ topItem2}}</div>
+        <div v-if="stage == 4" class="container">{{ items[topItem1][topItem2].find(element => element.id === topItem3)?.title || 'Item not found' }}</div>
+        <div v-if="stage == 4"><star-rating :rating="items[topItem1][topItem2].find(element => element.id === topItem3)?.rating" /></div>
+        <div v-if="stage == 5" class="container">Question: </div>
+        <div v-if="stage == 5" class="container">{{ topItem4.question }}</div>
+        <div v-if="stage == 5" class="container">Answer: </div>
+        <div v-if="stage == 5" class="container"><span v-html="convertURLsToLinks(topItem4.answer)"></span></div>
+        <div v-if="stage == 1" class="container">Please select a category</div>
     </div>
     <div class="main-container">
       <div class="container">
@@ -45,7 +45,7 @@
               <div><star-rating :rating="item.rating" /></div>
             </button>
           </transition-group>
-          <transition-group :css="!disableAnimations" name="list4-transition" tag="div" class="list" :class="{ active: stage >= 4 }" v-if="stage1Key && stage2Key && stage3Key">
+          <transition-group :css="!disableAnimations" name="list4-transition" tag="div" class="list" :class="{ active: stage >= 4 }" v-if="stage1Key && stage2Key && Number(route.params.stage) >= 4">
             <button
               class="button" 
               v-for="(item, index) in list4" :key="index"
@@ -73,7 +73,23 @@ const stage1Key = ref('');
 const stage2Key = ref('');
 const stage3Key = ref('');
 const thirdItems = ref([]);
-const finalItems = ref([]);
+const finalItems = ref([
+  { "question": "What changed?", "answer": "" },
+  { "question": "Function of the parameter", "answer": "" },
+  { "question": "Who initiated this change?", "answer": "" },
+  { "question": "Date first raised, considered, or discussed by whoever implemented it", "answer": "" },
+  { "question": "Date first announced that a decision had been made and that the change would be implemented", "answer": "" },
+  { "question": "Date actually implemented", "answer": "" },
+  { "question": "Who had input or was consulted", "answer": "" },
+  { "question": "How or where communicated to the whole community", "answer": "" },
+  { "question": "Link to documentation of any discussion before it was announced", "answer": "" },
+  { "question": "Any published research or publication underpinning it", "answer": "" },
+  { "question": "Any community comments on how it was shared, how informed they felt, etc", "answer": "" },
+  { "question": "Which roles in Catalyst does this parameter change affect?", "answer": "" },
+  { "question": "Do community members submitting this change think …ould be in the control of the Catalyst community?", "answer": "" },
+  { "question": "What conditions would have to be met before the Ca…t community could take control of this parameter?", "answer": "" }
+]
+);
 const topItem1 = ref('');
 const topItem2 = ref('');
 const topItem3 = ref('');
@@ -81,14 +97,12 @@ const topItem4 = ref('');
 const disableAnimations = ref(false);
 const { processedData } = await useGetParams();
 let items = processedData.value
-console.log(processedData.value)
 let selectedItem = ref(null);
 let selectedSubItem = ref(null);
 let selectedSubSubItem = ref(null);
 
 onMounted(async () => {
   loaded.value = true;
-  console.log("onMounter route", route.params)
   const segments = route.fullPath.replace(/^\/|\/$/g, '').split('/');
   if (route.params.stage && segments.length < 4) {
     stage.value = Number(route.params.stage);
@@ -213,10 +227,7 @@ function selectSubItem(subItem, stageNumber) {
 }
 
 async function getParamDetails(subSubItem, stageNumber) {
-  //const { processedData2 } = await useGetParamDetails(subSubItem);
-  //topItem3.value = subSubItem;
   topItem4.value = '';
-  //selectedSubSubItem.value = processedData2.value;
   if (stageNumber < stage.value) {
     disableAnimations.value = true;
   } else {
@@ -252,8 +263,7 @@ async function getQuestionDetails(questions, stageNumber) {
   flex-direction: column;
   justify-content: space-around;
   width: 700px;
-  border: 1px solid gray; 
-  border-radius: 5px;
+  min-height: 100px;
   padding: 10px;
   margin-bottom: -50px;
 }
