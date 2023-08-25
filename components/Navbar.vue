@@ -14,17 +14,10 @@
           class="Avatar"
           :style="{ height: 2 + 'em', width: 2 + 'em' }"
       />
-      <img
-        v-else
-        src='https://live.staticflickr.com/5204/5281085864_614284bbd0.jpg'
-        alt="Avatar"
-        class="Avatar"
-        :style="{ height: 2 + 'em', width: 2 + 'em' }"
-      />
-      <p>
+      <p class="username">
         {{ username }} 
       </p>  </nuxt-link>
-    <div class="user" v-else> <button class="nav-link"> <Auth /> </button>  </div>
+      <Auth v-else/> 
   </nav>
 </template>
 
@@ -110,6 +103,9 @@ button.nav-link {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+.username{
+  margin-right: 20px;
 }
 </style>
 

@@ -263,6 +263,7 @@ async function getQuestionDetails(questions, stageNumber) {
   flex-direction: column;
   justify-content: space-around;
   width: 700px;
+  margin-left: -30px;
   min-height: 100px;
   padding: 10px;
   margin-bottom: -50px;
@@ -317,7 +318,7 @@ async function getQuestionDetails(questions, stageNumber) {
   }
 #button4 {
     margin-bottom: 20px;
-    width: 40em;
+    width: 35em;
     text-transform: none;
   }
 .button:hover {

@@ -22,16 +22,39 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <form class="row flex-center flex" @submit.prevent="handleLogin">
-    <div class="col-6 form-widget">
+  <form @submit.prevent="handleLogin">
+    <div>
       <div>
-        <input
-          type="submit"
-          class="button block"
-          :value="loading ? 'Loading' : 'Sign in with Discord'"
-          :disabled="loading"
-        />
+        <button class="login" @click="handleLogin">Login with Discord</button>
       </div>
     </div>
   </form>
 </template>
+
+<style>
+.login {
+  margin-right: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px; 
+  max-width: 250px; 
+  height: 30px; 
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: #7289DA;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.login:hover {
+  background-color: #333;
+  color: #f8f9fa;
+}
+</style>
